@@ -1,0 +1,367 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython documentation</title>
+<link rel="stylesheet" href="../doc_brython.css">
+
+<script src="/src/brython.js"></script>
+
+<script type="text/python3">
+from browser import window, document, html
+
+import highlight
+
+import header
+header.show('../../', 'en')
+
+def run(ev):
+    # run the code in the elt after the button
+    ix = ev.target.parent.children.index(ev.target)
+    elt = ev.target.parent.children[ix+1]
+    exec(elt.text,{})
+    elt.focus()
+
+target = 'content'
+for elt in document[target].get(selector='.exec'):
+    # Python code executed when user clicks on a button
+    elt.contentEditable = True
+    src = elt.text.strip()
+    h = highlight.highlight(src)
+    h.className = "pycode"
+    elt.clear()
+    elt <= h
+    elt.focus()
+    btn = html.BUTTON('▶')
+    btn.bind('click', run)
+    elt.parent.insertBefore(btn, elt)
+for elt in document[target].get(selector='.exec_on_load'):
+    # Python code executed on page load
+    src = elt.text.strip()
+    h = highlight.highlight(src)
+    h.className = "pycode"
+    elt.clear()
+    elt <= h
+    exec(src,{})
+for elt in document[target].get(selector='.python'):
+    src = elt.text.strip()
+    h = highlight.highlight(src)
+    h.className = "pycode"
+    elt.clear()
+    elt <= h
+
+
+</script>
+
+</head>
+<body onLoad="brython(1)">
+
+<scripts>
+
+<table id=banner cellpadding=0 cellspacing=0>
+<tr id=banner_row >
+<td class="logo"><a href="../../index.html"><img src="/brython.png" class="logo"></a></td>
+</tr>
+</table>
+
+<table width="100%">
+<tr>
+<td style="width:20%;vertical-align:top;">
+<h4><a class="navig" href="intro.html">Introduction</a></h4>
+<h4><a class="navig" href="faq.html">Frequently asked questions</a></h4>
+<h4><a class="navig" href="syntax.html">Syntax, keywords and built-in functions</a></h4>
+<h4><a class="navig" href="stdlib.html">Standard distribution</a></h4>
+<h4><a class="navig" href="import.html"><tt>import</tt> implementation</a></h4>
+
+<h4>Browser interface</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="dom_api.html">Introduction - DOM API</a>
+<br><a class="navig" href="create.html">Creating a document</a>
+<br><a class="navig" href="access.html">Accessing elements</a>
+<br><a class="navig" href="attributes.html">Attributes and methods</a>
+<br>
+<br><a class="navig" href="events.html">Events</a>
+<br><a class="navig" href="mouse_events.html">Mouse events</a>
+<br><a class="navig" href="keyboard_events.html">Keyboard events</a>
+<br><a class="navig" href="focus_events.html">Focus events</a>
+<br><a class="navig" href="drag_events.html">Drag events</a>
+<br>
+<br><a class="navig" href="query.html">Query string</a>
+<br>
+<br><a class="navig" href="jsobjects.html">Using Javascript objects and libraries</a>
+</div>
+
+<h4>Brython-specific built-in modules</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="browser.html">browser</a>
+<br><a class="navig" href="ajax.html">browser.ajax</a>
+<br><a class="navig" href="html.html">browser.html</a>
+<br><a class="navig" href="local_storage.html">browser.local_storage</a>
+<br><a class="navig" href="markdown.html">browser.markdown</a>
+<br><a class="navig" href="object_storage.html">browser.object_storage</a>
+<br><a class="navig" href="local_storage.html">browser.session_storage</a>
+<br><a class="navig" href="svg.html">browser.svg</a>
+<br><a class="navig" href="timer.html">browser.timer</a>
+<br><a class="navig" href="websockets.html">browser.websocket</a>
+<br>
+<br><a class="navig" href="javascript.html">javascript</a>
+</div>
+
+<h4>Working with Brython</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="options.html">Options of function <code>brython()</code></a>
+<br><a class="navig" href="dev_env.html">Installing the development environment</a>
+<br><a class="navig" href="test.html">Testing and debugging</a>
+<br><a class="navig" href="deploy.html">Deploying an application</a>
+</div>
+
+<h4>Brython for Firefox OS</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="firefox_os_intro.html">Introduction</a>
+<br><a class="navig" href="firefox_os_tuto1.html">WebApps : design</a>
+<br><a class="navig" href="firefox_os_tuto2.html">WebApps : application</a>
+</div>
+
+<h4>Cookbook</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="cookbook/hello_world.html">Hello world !</a>
+<br><a class="navig" href="cookbook/content_in_div.html">Insert content in an element</a>
+<br><a class="navig" href="cookbook/basic_markup.html">HTML markup (bold,italic...)</a>
+<br><a class="navig" href="cookbook/table.html">HTML table</a>
+<br><a class="navig" href="cookbook/bind_unbind.html">Bind and unbind events</a>
+<br><a class="navig" href="cookbook/select_checkbox.html">Handle options in a SELECT</a>
+<br><a class="navig" href="cookbook/drag_drop.html">Drag and drop</a>
+<br><a class="navig" href="cookbook/get_content.html">Get the content of an element</a>
+<br><a class="navig" href="cookbook/read_file.html">Read the content of a file</a>
+<br><a class="navig" href="cookbook/local_storage.html">Store objects locally</a>
+<br><a class="navig" href="cookbook/read_text_from_imagemap.html">Example of onmouseover</a>
+</div>
+
+</td>
+
+<td id="content" style="vertical-align:top;">
+&nbsp;<p><p></p>
+<p></p>
+<p></p>
+<H2>Testing and debugging</H2>
+
+<p></p>
+<H3>Interactive test</H3>
+
+<p></p>
+The Brythons site, or its mirror available for download, include a console where you can test Python code
+<p></p>
+Please note that the namespace is not refreshed when you click on "run", you must reload the page for that
+<p></p>
+For debugging and testing Brython, a number of test scripts are grouped in the directory <code>tests</code> ; you can access them by clicking the link  "Test pages" in the console, then select the different tests and run them
+<p></p>
+<p></p>
+<H3>Debugging scripts</H3>
+
+<p></p>
+Whatever the debugging level, syntax errors are reported in the browser console (or at the place defined by <code>sys.stderr</code>)
+<p></p>
+For instance, the code
+<p></p>
+<blockquote></p><pre class="marked">x = $a</pre>
+<p></blockquote>
+<p></p>
+generates the message
+<p></p>
+<blockquote></p><pre class="marked">SyntaxError: unknown token [$]
+module '&#95;&#95;main&#95;&#95;' line 1
+x = $a
+    ^</pre>
+<p></blockquote>
+<p></p>
+By setting the debugging level to 1 in the call to function <code>brython(<I>debug&#95;mode</I>)</code>, the exceptions raised at runtime and not caught by an <code>except</code> also produce an error message, as close as possible to the one generated by Python3
+<p></p>
+This code :
+<p></p>
+<blockquote></p><pre class="marked">x = [1,2]
+x[3]</pre>
+<p></blockquote>
+<p></p>
+generates :
+<p></p>
+<blockquote></p><pre class="marked">IndexError: list index out of range
+module '&#95;&#95;main&#95;&#95;' line 2
+x[3]</pre>
+<p></blockquote>
+<p></p>
+<H3>Debugging Javascript Generated Python Code</H3>
+
+<p></p>
+<blockquote>
+ TL;DR if you want to use the browser builtin debugger to step through your python js code write <code>&#95;&#95;debugger&#95;&#95;</code> in your code and open the developer tools.
+</blockquote>
+<p></p>
+This statement is equivalent to the javascript <code>debugger</code> statement.
+<p></p>
+Modern browsers such as FireFox and Google Chrome have built in debuggers, these debuggers allow developers to step through the code stepping into function calls and out (you know like debuggers in IDEs)
+<p></p>
+It is possible to debug javascript code by placing breakpoints on the line numbers inside the script tab in the developer tools.
+<p></p>
+However Brython generated javascript is generated during runtime and thus does not appear in a file, fortunately, browsers have added a special keyword to the javascript language called <code>debugger</code> this statement manually inserts a breakpoint into the script so that in runtime if the developer tools are open it will halt execution and start a debugging session there.
+<p></p>
+We have added to the Brython interpreter the keyword <code>&#95;&#95;debugger&#95;&#95;</code> which will be translated by the tokenizer to <code>debugger</code> thus triggering the same process.
+<p></p>
+To try it out now head over to the editor, type <code>&#95;&#95;debugger&#95;&#95;</code> in your code, open the developer tools (in chrome right-click inspect element), then click run.
+<p></p>
+to learn more about the chrome developer tools visit their documentation or this short course by code school.
+<p></p>
+<p></p>
+<H3>Debugging Python Code</H3>
+
+<p></p>
+A simple time-travel step back and forth debugger is implimented <a href="../../tests/debugger.html">here</a>
+<p></p>
+As of this writing it is not full featured and supports only line step.
+You will find documentation on how each function in the debugger works (in case you want to build on it)
+<p></p>
+Currently only python language specific programs are supported.
+<p></p>
+The debugger does not fully support the input statements; only supporting input with a string literal for argument (more on this below).
+<p></p>
+<p></p>
+<H4>rython_Debugger For Developers</H4>
+
+<p></p>
+The debugger provides 4 hooks (on<I>debugging</I>started, on<I>step</I>update, on<I>debugging</I>end, and on<I>debugging</I>error) which take a callback that you can decide to do whatever you want with.
+<p></p>
+The way the debugger works in record mode (default) when you run <code>start&#95;debugger</code> is by parsing the python code into brython generated js and then injecting a trace function before each $line_info occurrence (which requires running brython in debug mode higher than 0).
+<p></p>
+Additional trace calls; are injected at the start of the code before any line, for pointing at the first line; after while loops and at the end of the program, for pointing at the correct lines when debugging in an editor.
+<p></p>
+Since the debugger is not run live but recorded the parser replaces each call to the brython input function with a trace of type input with the arguments that were meant to be passed to the input function (currently only support string literals).
+<p></p>
+After injecting trace is complete the debugger runs the code which then fires the trace calls while running.
+<p></p>
+Each line trace call gets a state object as parameter with the current top frame and line number and records it. Before doing so the previous state's next line number is updated with the current state's line number; as while stepping in the editor the next line not the current line is what gets highlighted.
+<p></p>
+If the line trace is of type afterwhile or eof then it's state is not recorded.
+<p></p>
+If an input trace is called then a line state trace of type input is added and the debugger halts code execution, starting the debugging session.
+<p></p>
+When the line trace of type input is stepped on the user is prompted for input based on Brython's defined input function, the result is recorded and the program gets re-executed.
+<p></p>
+If there was no input trace then the debugging session will start after the parsed code is executed normally.
+<p></p>
+<p></p>
+This debugger is still under development and changes will occur to the API
+<p></p>
+The debugger is available in the global scope from the window object under Brython_Debugger.
+<p></p>
+For an example on how it works see <a href="../../tests/debugger.html">debugger</a>
+<p></p>
+If you want to add additional trace points call the setTrace function provided by the API inside your own function (currently must be globally accessible)
+<p></p>
+The following is the debugger public API you can find more details description in the code at www/tests/debugger/main.js
+<p></p>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>start&#95;debugger()</code>
+<blockquote>
+ start the debugging session, takes code to debug as parameter as well as an optional boolean flag for whether to live debug or record. Currently live debug is not supported and debugging by default starts in record mode.  The on<I>debugging</I>started callback is called at the end of this step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>stop&#95;debugger()</code>
+<blockquote>
+ function to call when you want to stop the debugging session on<I>debugging</I>end is called at this step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>step&#95;debugger()</code>
+<blockquote>
+ This function when called steps forward one step in the recorded debugging session
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>step&#95;back&#95;debugger()</code>
+<blockquote>
+ This function when called steps backward one step in the recorded debugging session
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>can&#95;step(n)</code>
+<blockquote>
+ check if you can step to the specified step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>set&#95;step(n)</code>
+<blockquote>
+ seek to a specific step in the recorded debugging session take a number from 0 to the last step as parameter. If a number larger than the last step is entered nothing will happen
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>is&#95;debugging()</code>
+<blockquote>
+ return whether a debugging session is active
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>is&#95;recorded()</code>
+<blockquote>
+ returns whether this debugger is in recording mode
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>is&#95;last&#95;step()</code>
+<blockquote>
+ returns whether the current step is the last step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>is&#95;first&#95;step()</code>
+<blockquote>
+ returns whether the current step is the first step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>get&#95;current&#95;step()</code>
+<blockquote>
+ return a number indicating the current step
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>get&#95;current&#95;frame()</code>
+<blockquote>
+ returns the current frame/state (it should be state)
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>get&#95;recorded&#95;frames()</code>
+<blockquote>
+ returns all recorded states
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>set&#95;trace&#95;limit(Number)</code>
+<blockquote>
+ The maximum number of steps executed before the debugger halts, defult 10000
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>set&#95;trace(obj)</code>
+<blockquote>
+ object should contain the data you want paced later to the set_trace function
+</blockquote>
+ do not use event names already used by the debugger
+ add a trace call, (which will be called on step update)
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>set&#95;trace&#95;call(string)</code>
+<blockquote>
+ Change the name of the traceCall Function that is injected in the brython generated javascript, used to record state, the default is Brython<I>Debugger.set</I>trace. To change it you would still need to call this function, so be careful and generally you don't need to.
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>on&#95;debugging&#95;started(cb)</code>
+<blockquote>
+ cb is called after debugging session has started
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>on&#95;debugging&#95;end(cb)</code>
+<blockquote>
+ cb is called after debugging session has ended
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>on&#95;debugging&#95;error(cb)</code>
+<blockquote>
+ cb is called after either a syntax or runtime error occurs
+</blockquote>
+<p></p>
+<STRONG>Brython_Debugger</STRONG>.<code>on&#95;step&#95;update(cb)</code>
+<blockquote>
+ cb is called whenever a state is changed using setState
+</blockquote>
+<p></p></p>
+</td>
+</tr>
+</table>
+</html>
