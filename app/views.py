@@ -5,9 +5,6 @@ from django.template.loader import get_template
 from django.template import Context
 from django.views.generic.base import TemplateView
 
-# Create your views here.
-IMPORT_BRYTHON = ""
-
 class HomeView(TemplateView):
     template_name = "app/home.html"
 
