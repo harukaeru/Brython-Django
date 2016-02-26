@@ -1,4 +1,5 @@
 from browser import document, alert
+import random
 
 foo = "{{ foo }}"
 
@@ -22,4 +23,5 @@ Hoge(a='aaa').p()
 
 # コンソールに出力
 print(foo)
+print(random.randint(0, 1000))
 echo()
